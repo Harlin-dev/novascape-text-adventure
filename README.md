@@ -77,5 +77,3 @@ GitHub: Harlin-dev
 
 Facebook: Harlin Dev
 
-yaml
-Copy code
