@@ -1,0 +1,127 @@
+<html>
+<head>
+<title>TextBasedGame1.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #7a7e85;}
+.s1 { color: #bcbec4;}
+.s2 { color: #cf8e6d;}
+.s3 { color: #bcbec4;}
+.s4 { color: #6aab73;}
+.s5 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+TextBasedGame1.py</font>
+</center></td></tr></table>
+<pre><span class="s0">#Harlin Debien</span>
+
+
+  <span class="s0"># Create a main menu and gameplay instructions</span>
+<span class="s2">def </span><span class="s1">show_instructions</span><span class="s3">():</span>
+    <span class="s1">print</span><span class="s3">(</span><span class="s4">'Novascape Text Adventure Game'</span><span class="s3">)</span>
+    <span class="s1">print</span><span class="s3">(</span><span class="s4">'Enter the escape pod with all items or die to NOVA.'</span><span class="s3">)</span>
+    <span class="s1">print</span><span class="s3">(</span><span class="s4">'Move commands: go South, go North, go East, go West'</span><span class="s3">)</span>
+    <span class="s1">print</span><span class="s3">(</span><span class="s4">'Add to Inventory: get &quot;item name&quot;'</span><span class="s3">)</span>
+    <span class="s1">print</span><span class="s3">(</span><span class="s4">'Type &quot;Exit&quot; to quit the game'</span><span class="s3">)</span>
+
+<span class="s2">def </span><span class="s1">show_status</span><span class="s3">(</span><span class="s1">current_room</span><span class="s3">, </span><span class="s1">inventory</span><span class="s3">, </span><span class="s1">rooms</span><span class="s3">):</span>
+
+    <span class="s1">print</span><span class="s3">(</span><span class="s4">'</span><span class="s2">\n</span><span class="s4">You are in'</span><span class="s3">, </span><span class="s1">current_room</span><span class="s3">)</span>
+    <span class="s1">print</span><span class="s3">(</span><span class="s4">'Inventory:'</span><span class="s3">, </span><span class="s1">inventory</span><span class="s3">)</span>
+
+    <span class="s0"># Check if there is an item in the room</span>
+    <span class="s2">if </span><span class="s4">'item' </span><span class="s2">in </span><span class="s1">rooms</span><span class="s3">[</span><span class="s1">current_room</span><span class="s3">]:</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s4">'You see a '</span><span class="s3">, </span><span class="s1">rooms</span><span class="s3">[</span><span class="s1">current_room</span><span class="s3">][</span><span class="s4">'item'</span><span class="s3">])</span>
+    <span class="s2">else</span><span class="s3">:</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s4">&quot;There are no items here.&quot;</span><span class="s3">)</span>
+
+    <span class="s0"># Check if the villain is in the room</span>
+    <span class="s2">if </span><span class="s4">'villain' </span><span class="s2">in </span><span class="s1">rooms</span><span class="s3">[</span><span class="s1">current_room</span><span class="s3">]:</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s4">&quot;WARNING! The villain is here!&quot;</span><span class="s3">)</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s4">&quot;GAME OVER! The Alien Intruder has caught you!&quot;</span><span class="s3">)</span>
+        <span class="s1">exit</span><span class="s3">()</span>
+    <span class="s1">print</span><span class="s3">(</span><span class="s4">'-' </span><span class="s3">* </span><span class="s5">20</span><span class="s3">)</span>
+
+<span class="s2">def </span><span class="s1">check_win_condition</span><span class="s3">(</span><span class="s1">current_room</span><span class="s3">, </span><span class="s1">inventory</span><span class="s3">, </span><span class="s1">required_items</span><span class="s3">):</span>
+    <span class="s2">if </span><span class="s1">current_room </span><span class="s3">== </span><span class="s4">'Escape Pod Bay' </span><span class="s2">and </span><span class="s1">all</span><span class="s3">(</span><span class="s1">item </span><span class="s2">in </span><span class="s1">inventory </span><span class="s2">for </span><span class="s1">item </span><span class="s2">in </span><span class="s1">required_items</span><span class="s3">):</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s4">&quot;</span><span class="s2">\n </span><span class="s4">Congratulations! You have collected all necessary items and reached the Escape Pod! &quot;</span><span class="s3">)</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s4">&quot;You successfully escape the space station. Mission accomplished!</span><span class="s2">\n</span><span class="s4">&quot;</span><span class="s3">)</span>
+        <span class="s2">return True  </span><span class="s0"># Signal the game to end</span>
+    <span class="s2">return False  </span><span class="s0"># Game continues</span>
+
+<span class="s2">def </span><span class="s1">move_player</span><span class="s3">(</span><span class="s1">current_room</span><span class="s3">, </span><span class="s1">direction</span><span class="s3">, </span><span class="s1">rooms</span><span class="s3">):</span>
+    <span class="s2">if </span><span class="s1">direction </span><span class="s2">in </span><span class="s1">rooms</span><span class="s3">[</span><span class="s1">current_room</span><span class="s3">]:</span>
+        <span class="s2">return </span><span class="s1">rooms</span><span class="s3">[</span><span class="s1">current_room</span><span class="s3">][</span><span class="s1">direction</span><span class="s3">]  </span><span class="s0"># Move to the new room</span>
+    <span class="s2">else</span><span class="s3">:</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s4">&quot;You can't go that way!&quot;</span><span class="s3">)</span>
+        <span class="s2">return </span><span class="s1">current_room  </span><span class="s0"># Stay in the same room if movement is not possible</span>
+
+  <span class="s0"># Create a main function to initialize game mechanics</span>
+<span class="s2">def </span><span class="s1">main</span><span class="s3">():</span>
+    <span class="s1">show_instructions</span><span class="s3">()</span>
+    <span class="s0">#Game setup</span>
+    <span class="s1">current_room </span><span class="s3">= </span><span class="s4">'Command Center' </span><span class="s0"># Starting room</span>
+    <span class="s1">inventory </span><span class="s3">= [] </span><span class="s0"># Empty inventory at the start</span>
+    <span class="s1">required_items </span><span class="s3">= [</span><span class="s4">'Keycard'</span><span class="s3">, </span><span class="s4">'Oxygen tank'</span><span class="s3">, </span><span class="s4">'Power cell'</span><span class="s3">, </span><span class="s4">'Toolkit'</span><span class="s3">, </span><span class="s4">'Flashlight'</span><span class="s3">,</span>
+                      <span class="s4">'Fuel can'</span><span class="s3">]  </span><span class="s0"># Items needed to win</span>
+    <span class="s1">rooms </span><span class="s3">= {</span>
+        <span class="s4">'Command Center'</span><span class="s3">: {</span><span class="s4">'North'</span><span class="s3">: </span><span class="s4">'Greenhouse'</span><span class="s3">, </span><span class="s4">'West'</span><span class="s3">: </span><span class="s4">'Crew Quarters'</span><span class="s3">, </span><span class="s4">'East'</span><span class="s3">: </span><span class="s4">'Storage Bay'</span><span class="s3">, </span><span class="s4">'South'</span><span class="s3">: </span><span class="s4">'Labratory'</span><span class="s3">},</span>
+        <span class="s4">'Crew Quarters'</span><span class="s3">: {</span><span class="s4">'East'</span><span class="s3">: </span><span class="s4">'Command Center'</span><span class="s3">, </span><span class="s4">'item'</span><span class="s3">: </span><span class="s4">'keycard'</span><span class="s3">},</span>
+        <span class="s4">'Labratory'</span><span class="s3">: {</span><span class="s4">'North'</span><span class="s3">: </span><span class="s4">'Command Center'</span><span class="s3">, </span><span class="s4">'East'</span><span class="s3">: </span><span class="s4">'Engineering Deck'</span><span class="s3">, </span><span class="s4">'item'</span><span class="s3">: </span><span class="s4">'oxygen tank'</span><span class="s3">},</span>
+        <span class="s4">'Engineering Deck'</span><span class="s3">: {</span><span class="s4">'West'</span><span class="s3">: </span><span class="s4">'Labratory'</span><span class="s3">, </span><span class="s4">'item'</span><span class="s3">: </span><span class="s4">'power cell'</span><span class="s3">},</span>
+        <span class="s4">'Storage Bay'</span><span class="s3">: {</span><span class="s4">'West'</span><span class="s3">: </span><span class="s4">'Command Center'</span><span class="s3">, </span><span class="s4">'North'</span><span class="s3">: </span><span class="s4">'Medical Bay'</span><span class="s3">, </span><span class="s4">'item'</span><span class="s3">: </span><span class="s4">'toolkit'</span><span class="s3">},</span>
+        <span class="s4">'Medical Bay'</span><span class="s3">: {</span><span class="s4">'South'</span><span class="s3">: </span><span class="s4">'Storage Bay'</span><span class="s3">, </span><span class="s4">'villain'</span><span class="s3">: </span><span class="s4">'Nova'</span><span class="s3">},</span>
+        <span class="s4">'Greenhouse'</span><span class="s3">: {</span><span class="s4">'South'</span><span class="s3">: </span><span class="s4">'Command Center'</span><span class="s3">, </span><span class="s4">'East'</span><span class="s3">: </span><span class="s4">'Escape Pod Bay'</span><span class="s3">, </span><span class="s4">'item'</span><span class="s3">: </span><span class="s4">'flashlight'</span><span class="s3">},</span>
+        <span class="s4">'Escape Pod Bay'</span><span class="s3">: {</span><span class="s4">'West'</span><span class="s3">: </span><span class="s4">'Greenhouse'</span><span class="s3">, </span><span class="s4">'item'</span><span class="s3">: </span><span class="s4">'fuel can'</span><span class="s3">}</span>
+
+
+
+    <span class="s3">}</span>
+    <span class="s2">while True</span><span class="s3">:  </span><span class="s0"># Game loop</span>
+        <span class="s1">show_status</span><span class="s3">(</span><span class="s1">current_room</span><span class="s3">, </span><span class="s1">inventory</span><span class="s3">, </span><span class="s1">rooms</span><span class="s3">)</span>
+        <span class="s1">move </span><span class="s3">= </span><span class="s1">input</span><span class="s3">(</span><span class="s4">&quot;Enter your move: &quot;</span><span class="s3">).</span><span class="s1">strip</span><span class="s3">().</span><span class="s1">lower</span><span class="s3">()</span>
+
+        <span class="s2">if </span><span class="s1">move </span><span class="s3">== </span><span class="s4">&quot;exit&quot;</span><span class="s3">:</span>
+            <span class="s1">print</span><span class="s3">(</span><span class="s4">&quot;Thanks for playing! Goodbye.&quot;</span><span class="s3">)</span>
+            <span class="s2">break  </span><span class="s0"># Exit the game</span>
+
+        <span class="s2">elif </span><span class="s1">move</span><span class="s3">.</span><span class="s1">startswith</span><span class="s3">(</span><span class="s4">&quot;go &quot;</span><span class="s3">):  </span><span class="s0"># Handle movement</span>
+            <span class="s1">direction </span><span class="s3">= </span><span class="s1">move</span><span class="s3">[</span><span class="s5">3</span><span class="s3">:].</span><span class="s1">capitalize</span><span class="s3">()  </span><span class="s0"># Extract direction (e.g., &quot;go North&quot; → &quot;North&quot;)</span>
+            <span class="s2">if </span><span class="s1">direction </span><span class="s2">in </span><span class="s1">rooms</span><span class="s3">[</span><span class="s1">current_room</span><span class="s3">]:</span>
+                <span class="s1">current_room </span><span class="s3">= </span><span class="s1">rooms</span><span class="s3">[</span><span class="s1">current_room</span><span class="s3">][</span><span class="s1">direction</span><span class="s3">]  </span><span class="s0"># Update current room</span>
+            <span class="s2">if </span><span class="s1">check_win_condition</span><span class="s3">(</span><span class="s1">current_room</span><span class="s3">, </span><span class="s1">inventory</span><span class="s3">, </span><span class="s1">required_items</span><span class="s3">):</span>
+                <span class="s2">break  </span><span class="s0"># End the game loop when the player wins</span>
+
+            <span class="s2">else</span><span class="s3">:</span>
+                <span class="s1">print</span><span class="s3">(</span><span class="s4">&quot;You can't go that way!&quot;</span><span class="s3">)</span>
+
+
+        <span class="s2">elif </span><span class="s1">move</span><span class="s3">.</span><span class="s1">startswith</span><span class="s3">(</span><span class="s4">&quot;get &quot;</span><span class="s3">):  </span><span class="s0"># Handle item pickup</span>
+            <span class="s1">item </span><span class="s3">= </span><span class="s1">move</span><span class="s3">[</span><span class="s5">4</span><span class="s3">:].</span><span class="s1">capitalize</span><span class="s3">()</span>
+            <span class="s2">if </span><span class="s4">&quot;item&quot; </span><span class="s2">in </span><span class="s1">rooms</span><span class="s3">[</span><span class="s1">current_room</span><span class="s3">] </span><span class="s2">and </span><span class="s1">rooms</span><span class="s3">[</span><span class="s1">current_room</span><span class="s3">][</span><span class="s4">&quot;item&quot;</span><span class="s3">].</span><span class="s1">lower</span><span class="s3">() == </span><span class="s1">item</span><span class="s3">.</span><span class="s1">lower</span><span class="s3">():</span>
+                <span class="s1">inventory</span><span class="s3">.</span><span class="s1">append</span><span class="s3">(</span><span class="s1">item</span><span class="s3">)  </span><span class="s0"># Add item to inventory</span>
+                <span class="s2">del </span><span class="s1">rooms</span><span class="s3">[</span><span class="s1">current_room</span><span class="s3">][</span><span class="s4">&quot;item&quot;</span><span class="s3">]  </span><span class="s0"># Remove item from room</span>
+                <span class="s1">print</span><span class="s3">(</span><span class="s4">f&quot;You picked up </span><span class="s2">{</span><span class="s1">item</span><span class="s2">}</span><span class="s4">!&quot;</span><span class="s3">)</span>
+            <span class="s2">if </span><span class="s1">check_win_condition</span><span class="s3">(</span><span class="s1">current_room</span><span class="s3">, </span><span class="s1">inventory</span><span class="s3">, </span><span class="s1">required_items</span><span class="s3">):</span>
+                <span class="s2">break</span>
+            <span class="s2">else</span><span class="s3">:</span>
+                <span class="s1">print</span><span class="s3">(</span><span class="s4">&quot;There's no such item here!&quot;</span><span class="s3">)</span>
+
+
+        <span class="s2">else</span><span class="s3">:</span>
+            <span class="s1">print</span><span class="s3">(</span><span class="s4">&quot;Invalid command!&quot;</span><span class="s3">)</span>
+
+<span class="s0"># Run the game</span>
+<span class="s2">if </span><span class="s1">__name__ </span><span class="s3">== </span><span class="s4">&quot;__main__&quot;</span><span class="s3">:</span>
+    <span class="s1">main</span><span class="s3">()</span>
+
+
+
+
+</pre>
+</body>
+</html>
