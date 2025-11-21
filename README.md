@@ -50,7 +50,7 @@ Fuel can
 
 Entering a room with the villain without all items will result in GAME OVER.
 
-💻 Tech & Concepts
+## 💻 Tech & Concepts
 Python 3
 
 Console-based game logic
@@ -61,7 +61,7 @@ Loops and conditionals for game flow
 
 Dictionaries to store room structure and items
 
-📂 Future Improvements
+## 📂 Future Improvements
 Add multiple levels or storylines
 
 Include puzzles or challenges in rooms
@@ -70,7 +70,7 @@ Introduce additional villains or enemies
 
 Create a GUI version with graphics
 
-📫 Connect With Me
+## 📫 Connect With Me
 If you enjoy this project or want to discuss scripting or Python projects:
 
 GitHub: Harlin-dev
